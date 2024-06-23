@@ -1,0 +1,38 @@
+name: Create PR from main
+
+on:
+  push:
+    branches:
+      - main
+# 将来的にpathsを指定して、アプリケーションのファイルが変更された時のみ実行するようにする
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+        # settings > actions > General > workflows permissions > Read and write permissions
+      - name: Get Token
+        id: get_token
+        run: echo "::set-output name=token::${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Create PR
+        id: create_pr
+        env:
+          GITHUB_TOKEN: ${{ steps.get_token.outputs.token }}
+          BASE_BRANCH: develop
+          HEAD_BRANCH: main
+        shell: bash
+        run: |
+          PR_URL_DEV=$(gh pr create -B ${{ env.BASE_BRANCH }} -H ${{ env.HEAD_BRANCH}} -l ${{ env.BASE_BRANCH}} -t "${{ env.BASE_BRANCH }} <- ${{ env.HEAD_BRANCH }}" -b "This PR is created automatically from ${{ env.HEAD_BRANCH }} to ${{ env.BASE_BRANCH }}.")
+          echo "PR_URL_DEV=${PR_URL_DEV}" >> $GITHUB_OUTPUT
+        continue-on-error: true
+
+      - name: Merge PR into develop
+        shell: bash
+        run: |
+          gh pr merge ${{ steps.create_pr.outputs.PR_URL_DEV }} --merge || exit 0
+        env:
+          GITHUB_TOKEN: ${{ steps.get_token.outputs.token }}
