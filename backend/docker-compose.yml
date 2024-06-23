@@ -1,0 +1,16 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ts-all-app-backend
+    volumes:
+      - /usr/src/node_modules
+      - .:/usr/src/app
+    command: npm run dev:debug
+    expose:
+      - 80
+      - 9229
+    ports:
+      - 3000:80
+      - 9229:9229
