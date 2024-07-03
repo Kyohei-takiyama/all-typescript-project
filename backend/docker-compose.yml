@@ -1,26 +1,26 @@
 services:
   db:
     image: postgres
+    hostname: db
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
-      - 5433:5432
+      - 5432:5432
+    env_file:
+      - ./.env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ts-all-app
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+      - TZ=Asia/Tokyo
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
 
   # Redis:https://github.com/redis/ioredis
   redis:
     image: redis:alpine
     ports:
       - 6379:6379
+    depends_on:
+      - db
 
   app:
     build:

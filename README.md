@@ -32,15 +32,38 @@ WIP
 
 ```sh
 # move /backend directory
-docker compose build
-docker compose up
+docker-compose up --build
+# or
+docker compose build # build
+docker compose up # build and run when first run 2回目からはrunのみ
+
+# container down
+docker-compose down
+
+# delete volume
+docker volume ls
+# example
+docer volume rm backend_db-data
+
+# check environment variables in container
+docker exec -it { container_name } sh
+printenv
+```
+
+#### DB Migrate
+
+```sh
+# connect docker app container
+docker exec -it ts-all-app-backend sh
+# run npm command migration
+npm run migrate:init
 ```
 
 #### Redis
 
 ```sh
 # connect redis server
-docker exec -it {conatainer name} bin sh
+docker exec -it {conatainer name} sh
 
 # connected redis server , use `redis cli`
 redis-cli
