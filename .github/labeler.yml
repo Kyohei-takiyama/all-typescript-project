@@ -1,0 +1,15 @@
+# branch
+"develop":
+  - base-branch: 'develop'
+
+"main":
+  - base-branch: 'main'
+
+# Language
+"frontend":
+- changed-files:
+  - any-glob-to-any-file: "frontend/**"
+
+"backend":
+- changed-files:
+  - any-glob-to-any-file: "backend/**"
