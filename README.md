@@ -23,3 +23,38 @@ WIP
  # PR
  Someting PR title {Closes #{issue No}}
 ```
+
+## How to Development
+
+### Backend
+
+#### Docker
+
+```sh
+# move /backend directory
+docker compose build
+docker compose up
+```
+
+#### Redis
+
+```sh
+# connect redis server
+docker exec -it {conatainer name} bin sh
+
+# connected redis server , use `redis cli`
+redis-cli
+
+# Get Value by Key
+GET {key name}
+
+# Set Value
+SET {key name} value
+# if success set key-value , print 'OK'
+
+# example
+127.0.0.1:6379> SET example 123
+OK
+127.0.0.1:6379> GET example
+"123"
+```
