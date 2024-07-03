@@ -1,5 +1,7 @@
 import { Redis } from "ioredis";
 import dotenv from "dotenv";
+import session from "express-session";
+import RedisStore from "connect-redis";
 
 dotenv.config();
 
@@ -18,4 +20,18 @@ redisClient.on("error", (err) => {
   console.error("Redis connection error:", err);
 });
 
-export default redisClient;
+// セッションミドルウェアの設定
+const sessionMiddleware = session({
+  name: "session-id",
+  store: new RedisStore({ client: redisClient }),
+  secret: process.env.REDIS_SECRET as string,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    httpOnly: true,
+    maxAge: 60 * 60 * 1000,
+  },
+});
+
+export { redisClient, sessionMiddleware };

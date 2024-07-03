@@ -1,0 +1,22 @@
+name: Set labels to PR
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  attach_labels:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set PR label
+        uses: actions/labeler@v5
