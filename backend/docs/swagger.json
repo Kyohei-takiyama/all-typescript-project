@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Express API with Swagger",
+    "description": "API documentation for Express app with Swagger",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "healthチェック",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResponseUser"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User to create",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestUser"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User created successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseUser"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RequestUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email",
+        "password"
+      ]
+    },
+    "ResponseUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

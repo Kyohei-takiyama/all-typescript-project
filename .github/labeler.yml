@@ -13,3 +13,7 @@
 "backend":
 - changed-files:
   - any-glob-to-any-file: "backend/**"
+
+"terraform":
+- changed-files:
+  - any-glob-to-any-file: "terraform/**"

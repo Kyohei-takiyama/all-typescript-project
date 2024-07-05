@@ -30,12 +30,6 @@ router.post("/", async (req: Request, res: Response) => {
 });
 
 router.get("/", async (req: Request, res: Response) => {
-  // const getSession = await redisClient.get("foo");
-  // console.log("getSession: " + getSession);
-  // if (!getSession) {
-  //   redisClient.set("foo", "bar");
-  //   console.log("setSession: bar");
-  // }
   const users: ResponseUser[] = (await getAllUser()) || [];
   res.send("users: " + JSON.stringify(users));
 });

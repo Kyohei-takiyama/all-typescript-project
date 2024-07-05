@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "../docs/swagger.json";
 
 // import sessionMiddleware from "./middlewares/session";
 
@@ -11,6 +13,9 @@ import authRouter from "./routes/auth";
 const app = express();
 const port = 80;
 dotenv.config();
+
+// Swaggerの設定
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // ミドルウェアの設定
 app.use(bodyParser.json());
