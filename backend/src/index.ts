@@ -5,8 +5,6 @@ import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../docs/swagger.json";
 
-// import sessionMiddleware from "./middlewares/session";
-
 import usersRouter from "./routes/user";
 import authRouter from "./routes/auth";
 

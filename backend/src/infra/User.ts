@@ -64,3 +64,20 @@ export async function getUserByEmail(email: string): Promise<User | undefined> {
     await prisma.$disconnect();
   }
 }
+
+export async function getUserById(id: string): Promise<User | undefined> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+    console.log(user);
+    if (!user) {
+      return undefined;
+    }
+    return user;
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
