@@ -1,6 +1,12 @@
 import { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../util/jwt";
 
+declare module "express" {
+  export interface Request {
+    userId?: string;
+  }
+}
+
 const authJWT = (req: Request, res: Response, next: NextFunction) => {
   console.log("authJWT", req.headers.authorization);
   const token = req.headers.authorization?.split(" ")[1];
@@ -15,7 +21,7 @@ const authJWT = (req: Request, res: Response, next: NextFunction) => {
   }
   console.log("verified: ", verified);
 
-  req.user = verified;
+  req.userId = verified.userId;
   next();
 };
 
