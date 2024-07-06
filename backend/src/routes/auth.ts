@@ -2,6 +2,8 @@ import "express-session";
 import { Router, Request, Response } from "express";
 import { redisClient } from "../middlewares/redisClient";
 import { v4 as uuidv4 } from "uuid";
+import bcryptjs from "bcryptjs";
+
 import { getUserByEmail } from "../infra/User";
 
 const router = Router();
@@ -18,10 +20,10 @@ export interface SessionData {
 }
 
 router.post("/login", async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   // get user from db
-  const user = await getUserByEmail(username);
+  const user = await getUserByEmail(email);
   console.log("user: ", user);
   if (!user) {
     res.status(404).send("User not found");
@@ -29,7 +31,8 @@ router.post("/login", async (req: Request, res: Response) => {
   }
 
   // compare password
-  if (user.password !== password) {
+  const isPasswordMatch = bcryptjs.compareSync(password, user.password);
+  if (!isPasswordMatch) {
     res.status(401).send("Password is incorrect");
     return;
   }
