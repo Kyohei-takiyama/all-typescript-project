@@ -1,14 +1,17 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Express API with Swagger",
-    "description": "API documentation for Express app with Swagger",
+    "title": "All Typescript Project",
+    "description": "This is a sample server for a typescript project. You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). You can also email us at [",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/api/v1",
   "schemes": [
     "http"
+  ],
+  "consumes": [
+    "application/json"
   ],
   "paths": {
     "/health": {
@@ -26,6 +29,9 @@
     },
     "/users": {
       "get": {
+        "tags": [
+          "users"
+        ],
         "summary": "Get all users",
         "responses": {
           "200": {
@@ -40,6 +46,9 @@
         }
       },
       "post": {
+        "tags": [
+          "users"
+        ],
         "summary": "Create a new user",
         "parameters": [
           {
@@ -64,6 +73,129 @@
           },
           "500": {
             "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/todos": {
+      "get": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "Get all todos",
+        "description": "Retrieve a list of all todos",
+        "responses": {
+          "200": {
+            "description": "A list of todos",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ResponseTodo"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "Create a new todo",
+        "description": "Create a new todo",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "todo",
+            "description": "Todo object that needs to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestTodo"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Todo created",
+            "schema": {
+              "$ref": "#/definitions/ResponseTodo"
+            }
+          }
+        }
+      }
+    },
+    "/todos/{id}": {
+      "get": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "Get a todo by ID",
+        "description": "Retrieve a specific todo by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A todo",
+            "schema": {
+              "$ref": "#/definitions/ResponseTodo"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "Update a todo by ID",
+        "description": "Update a specific todo by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "todo",
+            "description": "Updated todo object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RequestTodo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Todo updated",
+            "schema": {
+              "$ref": "#/definitions/ResponseTodo"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "todo"
+        ],
+        "summary": "Delete a todo by ID",
+        "description": "Delete a specific todo by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Todo deleted"
           }
         }
       }
@@ -99,6 +231,92 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        }
+      }
+    },
+    "Todo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_STARTED",
+            "IN_PROGRESS",
+            "COMPLETED"
+          ]
+        },
+        "userId": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "details": {
+          "type": "string"
+        }
+      }
+    },
+    "RequestTodo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_STARTED",
+            "IN_PROGRESS",
+            "COMPLETED"
+          ]
+        },
+        "details": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "status"
+      ]
+    },
+    "ResponseTodo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_STARTED",
+            "IN_PROGRESS",
+            "COMPLETED"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "details": {
           "type": "string"
         }
       }

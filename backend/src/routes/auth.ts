@@ -1,7 +1,7 @@
 import "express-session";
 import { Router, Request, Response } from "express";
-import { redisClient } from "../middlewares/redisClient";
-import { v4 as uuidv4 } from "uuid";
+// import { redisClient } from "../middlewares/redisClient";
+// import { v4 as uuidv4 } from "uuid";
 import bcryptjs from "bcryptjs";
 
 import { ResponseUser, getUserByEmail } from "../infra/User";
