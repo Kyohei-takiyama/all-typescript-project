@@ -7,6 +7,7 @@ import swaggerDocument from "../docs/swagger.json";
 
 import usersRouter from "./routes/user";
 import authRouter from "./routes/auth";
+import todoRouter from "./routes/todo";
 
 const app = express();
 const port = 80;
@@ -24,6 +25,7 @@ app.use(express.json());
 // ルートの設定
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/todos", todoRouter);
 
 // health check
 app.get("/health", (req: Request, res: Response) => {
