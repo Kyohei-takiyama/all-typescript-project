@@ -4,9 +4,9 @@
 
 Frontend , Backend , できれば Infra も全て Typescript で開発して、モノリスアーキテクチャを体験してみる
 
-## Architecture
+## Infra
 
-WIP
+![Infra](docs/構成図2.png)
 
 ## CI/CD
 
@@ -48,6 +48,18 @@ docer volume rm backend_db-data
 # check environment variables in container
 docker exec -it { container_name } sh
 printenv
+
+# delete unnecessary image
+docker image prune -f
+
+# delete unnecessary container
+docker container prune -f
+
+# delete unnecessary container
+docker volume prune -f
+
+# イメージ、コンテナ、ネットワーク、ボリュームの全部消し
+docker system prune --volumes -f
 ```
 
 #### DB Migrate
