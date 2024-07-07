@@ -17,11 +17,11 @@ variable "aws_secret_key" {
   type = string
 }
 
-variable "main_domain" {
+variable "domain" {
   type = string
 }
 
-variable "sub_domain" {
+variable "domain_name" {
   type = string
 }
 
@@ -40,6 +40,10 @@ variable "zone_id" {
 variable "prefix" {
   type    = string
   default = "ts-pj"
+}
+
+variable "cloudfront_domain_name" {
+  type = string
 }
 
 variable "github-oidc-endpoint" {

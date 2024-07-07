@@ -6,7 +6,7 @@ Frontend , Backend , できれば Infra も全て Typescript で開発して、�
 
 ## Infra
 
-![Infra](docs/構成図.png)
+![Infra](docs/構成図2.png)
 
 ## CI/CD
 
