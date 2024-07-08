@@ -62,13 +62,21 @@ docker volume prune -f
 docker system prune --volumes -f
 ```
 
-#### DB Migrate
+#### DB
+
+- Migration
 
 ```sh
 # connect docker app container
 docker exec -it ts-all-app-backend sh
 # run npm command migration
 npm run migrate:init
+```
+
+- Connection
+
+```sh
+psql --host=<db-endpoint> --port=5432 --username=<db-username> --password --dbname=<db-name>
 ```
 
 #### Redis
@@ -93,3 +101,26 @@ OK
 127.0.0.1:6379> GET example
 "123"
 ```
+
+#### Tips
+
+- aws command
+
+```sh
+# chekc db engine version aurora-postgress
+aws rds describe-db-engine-versions --engine aurora-postgresql --query '*[].[EngineVersion]' --output text --region us-east-2
+```
+
+#### What I learned
+
+- Systems manager のセッションマネージャー接続ができなかった
+
+  - 解決
+    - EC2 に IAM ロールをアタッチする
+      - IAM ロールに「AmazonSSMManagedInstanceCore」ポリシーを付与する
+      - IAM ロールを付与するためには、インスタンスプロファイルを作成して、IAM ロールとインスタンスプロファイルを紐づけた後に EC2 にアタッチする
+    - EC2 を配置するサブネットに出入りするための口を用意してあげる
+      - public サブネット
+        - パブリック IP アドレスを付与する
+      - private サブネット
+        - Nat Gateway または VPC エンドポイントなどを設定する
