@@ -32,14 +32,14 @@ jobs:
       image: ${{ steps.build-image.outputs.image }}
       task-definition: ${{ steps.task-definition.outputs.task-definition }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Print Variables
         run: |
           echo "{{ toJSON(github) }}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
           pwd
-
-      - name: Checkout
-        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
