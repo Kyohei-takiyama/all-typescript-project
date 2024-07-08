@@ -1,11 +1,11 @@
-resource "aws_cloudfront_distribution" "static-www" {
+resource "aws_cloudfront_distribution" "distribution" {
   # CNAMEの追加
   aliases = [var.domain_name]
   origin {
     domain_name = var.s3.bucket_regional_domain_name
     origin_id   = var.s3.bucket_id
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.static-www.cloudfront_access_identity_path
+      origin_access_identity = aws_cloudfront_origin_access_identity.distribution.cloudfront_access_identity_path
     }
   }
 
@@ -39,11 +39,14 @@ resource "aws_cloudfront_distribution" "static-www" {
     }
   }
   viewer_certificate {
-    acm_certificate_arn            = var.acm_certificate_arn
+    acm_certificate_arn            = aws_acm_certificate.cert.arn
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "TLSv1.2_2021"
-    cloudfront_default_certificate = false
+    cloudfront_default_certificate = true
   }
+
 }
 
-resource "aws_cloudfront_origin_access_identity" "static-www" {}
+resource "aws_cloudfront_origin_access_identity" "distribution" {
+  comment = "Access from CloudFront"
+}
