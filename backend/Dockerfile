@@ -4,10 +4,12 @@ FROM node:20
 # 作業ディレクトリを設定
 WORKDIR /usr/src/app
 
+# package.jsonとpackage-lock.jsonをコピー
+COPY package*.json ./
+RUN npm install
+
 # ソースコードをコピー
 COPY . .
-
-RUN npm install
 
 # TypeScriptのビルド
 RUN npm run build

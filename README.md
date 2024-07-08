@@ -172,3 +172,15 @@ aws rds describe-db-engine-versions --engine aurora-postgresql --query '*[].[Eng
         - パブリック IP アドレスを付与する
       - private サブネット
         - Nat Gateway または VPC エンドポイントなどを設定する
+
+- Github Actions での Docker を使った Image の Build と Deploy の際にハマった
+
+  - 解決
+    - 結論、下記の通り、 `context` を`Dockerfile`が置いてあるディレクトリをきちんと指定してあげる必要がある
+    - ローカルで実行するときは、基本 Dokcerfile が置いてあるでディレクトリに移動し、Docker-compose で立ち上げているから、あまり意識する必要がないが、デプロイなどをする際は、デプロイの実行環境を把握した上で、`context`をしっかり指定してあげる必要がある。「どこを起点に Docker を Build したいのか？」を自身で理解して、座組をする必要がある。
+    ```yml
+    uses: docker/build-push-action@v5
+    with:
+      context: ./backend
+      file: ./backend/Dockerfile
+    ```
