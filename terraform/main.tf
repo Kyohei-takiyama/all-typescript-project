@@ -67,3 +67,23 @@ module "bantion-ec2" {
   vpc_id              = module.vpc.vpc_id
   private_cidr_blocks = [module.vpc.private_subnet_a_cidr_block, module.vpc.private_subnet_b_cidr_block]
 }
+
+module "codedeploy" {
+  source = "./modules/codedeploy"
+
+  prefix = var.prefix
+  ecs = {
+    cluster_name = module.ecs.cluster_name
+    service_name = module.ecs.service_name
+  }
+
+  lb_listener = {
+    http_80   = module.ecs.http_80_arn
+    http_8080 = module.ecs.http_8080_arn
+  }
+
+  lb_target_group = {
+    blue  = module.ecs.http_blue_target_group_arn
+    green = module.ecs.http_green_target_group_arn
+  }
+}
