@@ -27,7 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./backend
+        working-directory: backend
     outputs:
       image: ${{ steps.build-image.outputs.image }}
       task-definition: ${{ steps.task-definition.outputs.task-definition }}
