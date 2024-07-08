@@ -36,6 +36,38 @@ module "cloudfront" {
   domain_name         = var.cloudfront_domain_name
 }
 
+module "seacret-manager" {
+  source = "./modules/seacret-manager"
+
+  prefix = var.prefix
+  my_secrets = {
+    db_username = var.db_username
+    db_password = var.db_password
+    db_endpoint = module.rds.db_endpoint
+  }
+}
+
+module "rds" {
+  source = "./modules/rds"
+
+  prefix             = var.prefix
+  private_subnet_ids = module.vpc.private_subnets
+  vpc_id             = module.vpc.vpc_id
+  db_username        = var.db_username
+  db_password        = var.db_password
+  cidr_blocks        = [module.vpc.cidr_block]
+}
+
+module "bantion-ec2" {
+  source = "./modules/EC2"
+
+  prefix              = var.prefix
+  public_subnet_id    = module.vpc.public_subnets[0]
+  private_subnet_id   = module.vpc.private_subnets[0]
+  vpc_id              = module.vpc.vpc_id
+  private_cidr_blocks = [module.vpc.private_subnet_a_cidr_block, module.vpc.private_subnet_b_cidr_block]
+}
+
 ##################
 # ACM for CloudFront 北部リージョンの証明書を取得する(ACM自体は手動で作成してImportする)
 # https://qiita.com/jibirian999/items/6abf056d741281141f29

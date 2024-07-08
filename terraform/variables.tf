@@ -52,3 +52,11 @@ variable "github-oidc-endpoint" {
   default     = "https://token.actions.githubusercontent.com"
 }
 
+variable "db_username" {
+  type = string
+}
+
+variable "db_password" {
+  type = string
+}
+
