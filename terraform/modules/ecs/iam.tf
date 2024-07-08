@@ -15,7 +15,9 @@ data "aws_iam_policy_document" "ecs_task_execution_role" {
       "logs:PutLogEvents",
       "ecr:CreateRepository",
       "ecr:CreatePullThroughCacheRule",
-      "ecr:BatchImportUpstreamImage"
+      "ecr:BatchImportUpstreamImage",
+      "secretsmanager:GetSecretValue",
+      "kms:Decrypt"
     ]
     resources = ["*"]
   }
