@@ -27,6 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: backend
     outputs:
       image: ${{ steps.build-image.outputs.image }}
       task-definition: ${{ steps.task-definition.outputs.task-definition }}
@@ -35,14 +36,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Print Variables with Working Directory
-        working-directory: backend
-        run: |
-          echo "{{ toJSON(github) }}"
-          echo "GITHUB_SHA=${GITHUB_SHA}"
-          pwd
-          ls -la
-
-      - name: Print Variables no Working Directory
         run: |
           echo "{{ toJSON(github) }}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
@@ -91,7 +84,6 @@ jobs:
         id: build-image
         with:
           context: .
-          file: ./backend/Dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}:${{ steps.create-tag.outputs.tag }}
           cache-from: type=gha
