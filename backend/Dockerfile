@@ -4,12 +4,10 @@ FROM node:20
 # 作業ディレクトリを設定
 WORKDIR /usr/src/app
 
-# パッケージマネージャのファイルをコピーし、依存関係をインストール
-COPY package*.json ./
-RUN npm install
-
 # ソースコードをコピー
 COPY . .
+
+RUN npm install
 
 # TypeScriptのビルド
 RUN npm run build
