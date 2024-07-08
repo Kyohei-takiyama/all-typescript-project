@@ -27,7 +27,6 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: backend
     outputs:
       image: ${{ steps.build-image.outputs.image }}
       task-definition: ${{ steps.task-definition.outputs.task-definition }}
@@ -35,11 +34,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Print Variables
+      - name: Print Variables with Working Directory
+        working-directory: backend
         run: |
           echo "{{ toJSON(github) }}"
           echo "GITHUB_SHA=${GITHUB_SHA}"
           pwd
+          ls -la
+
+      - name: Print Variables no Working Directory
+        run: |
+          echo "{{ toJSON(github) }}"
+          echo "GITHUB_SHA=${GITHUB_SHA}"
+          pwd
+          ls -la
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -82,7 +90,7 @@ jobs:
         uses: docker/build-push-action@v5
         id: build-image
         with:
-          context: ./backend
+          context: .
           file: ./backend/Dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}:${{ steps.create-tag.outputs.tag }}
