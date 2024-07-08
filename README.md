@@ -1,14 +1,58 @@
 # all-typescript-project
 
+## Common Skill set
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=github,githubactions,docker" />
+  </a>
+</p>
+
+## Frontend Skill set
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=npm,ts,react,vite,materialui" />
+  </a>
+</p>
+
+## Backend Skill set
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=npm,ts,nodejs,prisma,postgres" />
+  </a>
+</p>
+
+## IaC Skill set
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=terraform" />
+  </a>
+</p>
+
+## Infrastracture Skill set
+
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=aws,linux" />
+  </a>
+</p>
+
 ## Overview
 
 Frontend , Backend , できれば Infra も全て Typescript で開発して、モノリスアーキテクチャを体験してみる
 
-## Infra
+## System Architecture
 
-![Infra](docs/構成図2.png)
+WIP
 
-## CI/CD
+## AWS Cloud Architecture
+
+![Infra](docs/構成図3.png)
+
+## CI/CD Flow
 
 WIP
 
