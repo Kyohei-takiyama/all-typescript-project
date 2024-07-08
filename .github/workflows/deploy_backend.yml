@@ -68,6 +68,7 @@ jobs:
         id: build-image
         with:
           context: .
+          file: ./backend/Dockerfile
           push: true
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPO_NAME }}:${{ steps.create-tag.outputs.tag }}
           cache-from: type=gha
