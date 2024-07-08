@@ -76,6 +76,10 @@ npm run migrate:init
 - Connection
 
 ```sh
+# use session manager connect to rds instance
+# after connect bastion ec2 server , install postresql
+sudo amazon-linux-extras install -y postgresql14
+
 psql --host=<db-endpoint> --port=5432 --username=<db-username> --password --dbname=<db-name>
 ```
 
