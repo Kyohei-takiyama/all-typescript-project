@@ -9,10 +9,10 @@ variable "s3" {
   })
 }
 
-variable "acm_certificate_arn" {
+variable "domain_name" {
   type = string
 }
 
-variable "domain_name" {
+variable "zone_id" {
   type = string
 }

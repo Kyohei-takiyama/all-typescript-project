@@ -32,8 +32,8 @@ module "cloudfront" {
     bucket_regional_domain_name = module.s3.bucket_regional_domain_name
     bucket_id                   = module.s3.bucket_id
   }
-  acm_certificate_arn = aws_acm_certificate.us_east_1.arn
-  domain_name         = var.cloudfront_domain_name
+  domain_name = var.cloudfront_domain_name
+  zone_id     = var.zone_id
 }
 
 module "seacret-manager" {
@@ -66,18 +66,4 @@ module "bantion-ec2" {
   private_subnet_id   = module.vpc.private_subnets[0]
   vpc_id              = module.vpc.vpc_id
   private_cidr_blocks = [module.vpc.private_subnet_a_cidr_block, module.vpc.private_subnet_b_cidr_block]
-}
-
-##################
-# ACM for CloudFront 北部リージョンの証明書を取得する(ACM自体は手動で作成してImportする)
-# https://qiita.com/jibirian999/items/6abf056d741281141f29
-##################
-resource "aws_acm_certificate" "us_east_1" {
-  provider          = aws.acm_provider
-  domain_name       = var.cloudfront_domain_name
-  validation_method = "DNS"
-
-  lifecycle {
-    create_before_destroy = false
-  }
 }
