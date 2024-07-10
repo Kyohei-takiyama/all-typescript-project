@@ -76,6 +76,15 @@ data "aws_iam_policy_document" "ecs_task_role" {
 
     resources = ["*"]
   }
+
+  statement {
+    sid = "seacretmanager"
+    actions = [
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+      "secretsmanager:ListSecretVersionIds"
+    ]
+  }
 }
 
 resource "aws_iam_role" "ecs_task_role" {
