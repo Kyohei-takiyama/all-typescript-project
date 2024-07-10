@@ -8,7 +8,6 @@ import swaggerDocument from "../docs/swagger.json";
 import usersRouter from "./routes/user";
 import authRouter from "./routes/auth";
 import todoRouter from "./routes/todo";
-import { getSecret } from "./util/aws";
 
 const app = express();
 const port = 80;
