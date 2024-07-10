@@ -84,6 +84,7 @@ data "aws_iam_policy_document" "ecs_task_role" {
       "secretsmanager:DescribeSecret",
       "secretsmanager:ListSecretVersionIds"
     ]
+    resources = ["*"]
   }
 }
 
