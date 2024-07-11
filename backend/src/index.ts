@@ -32,6 +32,10 @@ app.get("/health", (req: Request, res: Response) => {
   res.send("ok");
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+app
+  .listen(port, () => {
+    console.log(`Example app listening on port ${port}`);
+  })
+  .on("error", (e) => {
+    console.error(e);
+  });

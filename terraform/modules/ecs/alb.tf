@@ -52,7 +52,7 @@ resource "aws_alb_target_group" "this" {
   vpc_id      = var.vpc_id
 
   health_check {
-    path = "/"
+    path = "/health"
   }
 
   tags = {
