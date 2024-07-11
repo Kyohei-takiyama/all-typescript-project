@@ -54,11 +54,8 @@ jobs:
       - name: Create tag
         id: create-tag
         run: |
-          if [[ "${GITHUB_REF##*/}" == v* ]]; then
-            echo "tag=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
-          else
-            echo "tag=$(date +v%Y%m%d)-${GITHUB_SHA::8}" >> $GITHUB_OUTPUT
-          fi
+          [[ -z "${GITHUB_REF##*/} = v*" ]] && "TAG=${GITHUB_REF##*/}" || TAG=`date +v%Y%m%d`-${GITHUB_SHA::8}
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:

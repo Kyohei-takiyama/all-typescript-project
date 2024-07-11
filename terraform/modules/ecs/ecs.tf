@@ -60,9 +60,9 @@ resource "aws_ecs_service" "this" {
     container_port   = var.container_port
   }
 
-  # deployment_controller {
-  #   type = "CODE_DEPLOY"
-  # }
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
 
   depends_on = [
     aws_alb_listener.this
