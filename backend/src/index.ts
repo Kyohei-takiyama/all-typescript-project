@@ -29,6 +29,7 @@ app.use("/api/v1/todos", todoRouter);
 
 // health check
 app.get("/health", (req: Request, res: Response) => {
+  console.log("health check");
   res.send("ok");
 });
 
