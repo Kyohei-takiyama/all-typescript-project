@@ -45,6 +45,7 @@ jobs:
       - name: "echo path"
         run: |
           echo ls -la
+          pwd
 
       - name: "Configure AWS Credentials (AssumeRole via OIDC Provider)"
         uses: aws-actions/configure-aws-credentials@v4
