@@ -20,9 +20,9 @@ on:
       - "!README.md"
       - "!.gitignore"
 env:
-  tf_version: "1.7.0"
-  tf_working_dir: "terraform/envs/dev"
-  aws_region: "us-west-2"
+  TF_VERSION: "1.7.0"
+  TF_WORK_DIR: "terraform/envs/dev"
+  TF_AWS_REGION: "us-west-2"
 
 permissions:
   id-token: write
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ env.tf_working_dir }}
+        working-directory: ${{ env.TF_WORK_DIR }}
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -47,11 +47,11 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ env.TF_AWS_REGION }}
 
       - uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: ${{ env.tf_version }}
+          terraform_version: ${{ env.TF_VERSION }}
 
       - name: Terraform fmt
         id: fmt
@@ -104,7 +104,7 @@ jobs:
             </details>
             ${truncated_message}
 
-            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.tf_working_dir }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`${{ env.TF_WORK_DIR }}\`, Workflow: \`${{ github.workflow }}\`*`;
 
             github.rest.issues.createComment({
               issue_number: context.issue.number,
