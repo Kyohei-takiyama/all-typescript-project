@@ -36,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
+        shell: bash
         working-directory: ${{ env.TF_WORK_DIR }}
     steps:
       - name: "Checkout"
