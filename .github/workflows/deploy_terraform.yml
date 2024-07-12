@@ -38,16 +38,16 @@ jobs:
       run:
         working-directory: ${{ env.TF_WORK_DIR }}
     steps:
-      - name: "echo path"
-        run: |
-          echo ${{ github.workspace }}
-          echo ${{ github.workspace }}/terraform/envs/dev
-          echo pwd
-
       - name: "Checkout"
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: "echo path"
+        run: |
+          echo ls -la
+          echo ${{ github.workspace }}
+          echo ${{ github.workspace }}/terraform/envs/dev
 
       - name: "Configure AWS Credentials (AssumeRole via OIDC Provider)"
         uses: aws-actions/configure-aws-credentials@v4
