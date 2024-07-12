@@ -38,6 +38,12 @@ jobs:
       run:
         working-directory: ${{ env.TF_WORK_DIR }}
     steps:
+      - name: "echo path"
+        run: |
+          echo ${{ github.workspace }}
+          echo ${{ github.workspace }}/terraform/envs/dev
+          echo pwd
+
       - name: "Checkout"
         uses: actions/checkout@v4
         with:
